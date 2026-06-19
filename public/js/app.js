@@ -158,20 +158,22 @@ async function openModal(id) {
 
     gallery.innerHTML = `
       <div class="gallery-video-main">
-        <video controls preload="metadata" playsinline>
+        <video controls preload="metadata" playsinline ${p.videos[0].poster_filename ? `poster="/uploads/${p.videos[0].poster_filename}"` : ''}>
           <source src="/uploads/${p.videos[0].filename}">
         </video>
         ${p.videos.length > 1 ? `<div class="gallery-thumbs gallery-vid-thumbs">
           ${p.videos.map((v, i) => `
-            <div class="gallery-vid-thumb ${i === 0 ? 'active' : ''}" data-src="/uploads/${v.filename}">▶ ${i+1}</div>
+            <div class="gallery-vid-thumb ${i === 0 ? 'active' : ''}" data-src="/uploads/${v.filename}" data-poster="${v.poster_filename ? `/uploads/${v.poster_filename}` : ''}">▶ ${i+1}</div>
           `).join('')}
         </div>` : ''}
       </div>
     `;
     gallery.querySelectorAll('.gallery-vid-thumb').forEach(thumb => {
       thumb.addEventListener('click', () => {
+        const vid = gallery.querySelector('video');
         gallery.querySelector('video source').src = thumb.dataset.src;
-        gallery.querySelector('video').load();
+        vid.poster = thumb.dataset.poster || '';
+        vid.load();
         gallery.querySelectorAll('.gallery-vid-thumb').forEach(t => t.classList.remove('active'));
         thumb.classList.add('active');
       });
@@ -235,7 +237,7 @@ async function openModal(id) {
     photosStrip.style.display = 'none';
     gallery.innerHTML = `
       <div class="gallery-video-main">
-        <video controls preload="metadata" playsinline>
+        <video controls preload="metadata" playsinline ${p.videos[0].poster_filename ? `poster="/uploads/${p.videos[0].poster_filename}"` : ''}>
           <source src="/uploads/${p.videos[0].filename}">
         </video>
       </div>
@@ -270,5 +272,49 @@ function closeModal() {
   document.getElementById('modal').style.display = 'none';
   document.body.style.overflow = '';
 }
+
+// GARANTÍA
+document.getElementById('btn-garantia').addEventListener('click', async () => {
+  const res = await fetch('/api/warranty');
+  const data = await res.json();
+  document.getElementById('warranty-text').textContent = data.text || 'Información de garantía no disponible aún.';
+  document.getElementById('warranty-modal').style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+});
+document.getElementById('warranty-modal-close').addEventListener('click', () => {
+  document.getElementById('warranty-modal').style.display = 'none';
+  document.body.style.overflow = '';
+});
+document.getElementById('warranty-modal').addEventListener('click', e => {
+  if (e.target === document.getElementById('warranty-modal')) {
+    document.getElementById('warranty-modal').style.display = 'none';
+    document.body.style.overflow = '';
+  }
+});
+
+// ENVÍOS
+document.getElementById('btn-envios').addEventListener('click', async () => {
+  const res = await fetch('/api/shipping');
+  const data = await res.json();
+  document.getElementById('shipping-text').textContent = data.text || 'Información de envíos no disponible aún.';
+  document.getElementById('shipping-modal').style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+});
+document.getElementById('shipping-modal-close').addEventListener('click', () => {
+  document.getElementById('shipping-modal').style.display = 'none';
+  document.body.style.overflow = '';
+});
+document.getElementById('shipping-modal').addEventListener('click', e => {
+  if (e.target === document.getElementById('shipping-modal')) {
+    document.getElementById('shipping-modal').style.display = 'none';
+    document.body.style.overflow = '';
+  }
+});
+
+// LOGO SIZE
+fetch('/api/logo-size').then(r => r.json()).then(data => {
+  const logo = document.querySelector('.hero-logo');
+  if (logo) logo.style.height = data.size + 'px';
+});
 
 loadProducts();

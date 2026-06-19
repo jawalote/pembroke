@@ -31,6 +31,9 @@
       </div>
       <nav class="sidebar-nav">
         <a href="#" class="sidebar-link active" id="nav-products">Productos</a>
+        <a href="#" class="sidebar-link" id="nav-shipping">Información de Envíos</a>
+        <a href="#" class="sidebar-link" id="nav-warranty">Garantía</a>
+        <a href="#" class="sidebar-link" id="nav-appearance">Apariencia</a>
         <a href="/" target="_blank" class="sidebar-link">Ver Sitio Web</a>
       </nav>
       <button class="btn-logout" id="btn-logout">Cerrar sesión</button>
@@ -44,6 +47,75 @@
 
       <div id="products-table-wrap">
         <div class="loading">Cargando...</div>
+      </div>
+
+      <!-- SECCIÓN APARIENCIA -->
+      <div id="appearance-section" style="display:none">
+        <div class="main-header">
+          <h1>Apariencia</h1>
+        </div>
+        <div class="shipping-editor-box">
+          <h3 style="font-size:15px;font-weight:700;margin-bottom:16px;">Logo del sitio</h3>
+
+          <div class="appearance-logo-preview">
+            <img id="appearance-logo-img" src="/logo.png" alt="Logo actual">
+          </div>
+
+          <div class="appearance-row">
+            <label class="btn-upload" id="logo-upload-btn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
+              Cambiar Logo
+              <input type="file" id="logo-file-input" accept="image/*" style="display:none">
+            </label>
+            <span class="shipping-save-msg" id="logo-upload-msg"></span>
+          </div>
+
+          <hr class="divider" style="margin: 20px 0;">
+
+          <h3 style="font-size:15px;font-weight:700;margin-bottom:6px;">Tamaño del logo en el hero</h3>
+          <p class="shipping-editor-hint">Arrastra para ajustar qué tan grande aparece el logo en la página principal.</p>
+
+          <div class="logo-size-control">
+            <span class="logo-size-val" id="logo-size-display">160px</span>
+            <input type="range" id="logo-size-slider" min="80" max="400" step="10" value="160" class="logo-size-slider">
+            <div class="logo-size-labels"><span>Pequeño</span><span>Grande</span></div>
+          </div>
+
+          <div class="shipping-editor-actions" style="margin-top:16px;">
+            <button class="btn-primary" id="btn-save-logo-size">Guardar tamaño</button>
+            <span class="shipping-save-msg" id="logo-size-msg"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECCIÓN GARANTÍA -->
+      <div id="warranty-section" style="display:none">
+        <div class="main-header">
+          <h1>Garantía</h1>
+        </div>
+        <div class="shipping-editor-box">
+          <p class="shipping-editor-hint">Este texto aparece en el modal "Garantía" de la página pública.</p>
+          <textarea id="warranty-editor" rows="14" placeholder="Ej: Todos nuestros fardos cuentan con garantía de calidad..."></textarea>
+          <div class="shipping-editor-actions">
+            <button class="btn-primary" id="btn-save-warranty">Guardar cambios</button>
+            <span class="shipping-save-msg" id="warranty-save-msg"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECCIÓN ENVÍOS -->
+      <div id="shipping-section" style="display:none">
+        <div class="main-header">
+          <h1>Información de Envíos</h1>
+        </div>
+        <div class="shipping-editor-box">
+          <p class="shipping-editor-hint">Este texto aparece en el modal "Información de Envíos" de la página pública. Puedes usar saltos de línea para separar secciones.</p>
+          <textarea id="shipping-editor" rows="14" placeholder="Ej: Realizamos envíos a todo Chile a través de Starken y Chilexpress..."></textarea>
+          <div class="shipping-editor-actions">
+            <button class="btn-primary" id="btn-save-shipping">Guardar cambios</button>
+            <span class="shipping-save-msg" id="shipping-save-msg"></span>
+          </div>
+        </div>
       </div>
     </main>
   </div>
@@ -152,6 +224,30 @@
     </div>
   </div>
 
+  <!-- FRAME CAPTURE MODAL -->
+  <div class="modal-overlay" id="frame-modal" style="display:none">
+    <div class="frame-box">
+      <div class="crop-header">
+        <h3>Seleccionar portada del video</h3>
+        <button class="modal-close" id="frame-close">&times;</button>
+      </div>
+      <p class="crop-hint">Arrastra la barra del video al frame que quieras usar como portada, luego captura.</p>
+      <div class="frame-video-wrap">
+        <video id="frame-video" controls preload="metadata" style="width:100%;max-height:380px;background:#000;display:block;"></video>
+      </div>
+      <canvas id="frame-canvas" style="display:none"></canvas>
+      <div id="frame-preview-wrap" style="display:none">
+        <p class="crop-hint" style="margin-top:8px;">Vista previa del frame capturado:</p>
+        <img id="frame-preview-img" style="max-width:100%;max-height:200px;object-fit:contain;border-radius:8px;border:2px solid #2D4A3E;">
+      </div>
+      <div class="crop-actions">
+        <button class="btn-secondary" id="frame-cancel">Cancelar</button>
+        <button class="btn-secondary" id="frame-capture">📷 Capturar frame actual</button>
+        <button class="btn-primary" id="frame-save" disabled>Usar como portada</button>
+      </div>
+    </div>
+  </div>
+
   <!-- CONFIRM MODAL -->
   <div class="modal-overlay" id="confirm-modal" style="display:none">
     <div class="confirm-box">
@@ -164,6 +260,26 @@
     </div>
   </div>
 
+  <!-- CROP MODAL -->
+  <div class="modal-overlay" id="crop-modal" style="display:none">
+    <div class="crop-box">
+      <div class="crop-header">
+        <h3>Ajustar miniatura</h3>
+        <button class="modal-close" id="crop-close">&times;</button>
+      </div>
+      <p class="crop-hint">Arrastra para mover · Rueda del mouse para hacer zoom</p>
+      <div class="crop-container">
+        <img id="crop-image" src="" alt="crop">
+      </div>
+      <div class="crop-actions">
+        <button class="btn-secondary" id="crop-cancel">Cancelar</button>
+        <button class="btn-primary" id="crop-save">Guardar miniatura</button>
+      </div>
+    </div>
+  </div>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.2/cropper.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.2/cropper.min.js"></script>
   <script src="/admin/admin.js"></script>
 </body>
 </html>

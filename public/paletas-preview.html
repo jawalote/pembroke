@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Paletas de Color - Pembroke</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: system-ui, sans-serif; background: #111; color: #fff; padding: 32px 24px; }
+    h1 { text-align: center; font-size: 22px; font-weight: 700; margin-bottom: 8px; color: #eee; }
+    .subtitle { text-align: center; font-size: 14px; color: #888; margin-bottom: 40px; }
+
+    .paletas { display: flex; gap: 28px; justify-content: center; flex-wrap: wrap; }
+
+    .paleta { width: 340px; border-radius: 16px; overflow: hidden; box-shadow: 0 8px 40px rgba(0,0,0,0.5); }
+    .paleta-label {
+      text-align: center;
+      padding: 14px;
+      font-weight: 800;
+      font-size: 15px;
+      letter-spacing: 0.5px;
+      background: #1a1a1a;
+      color: #fff;
+      border-bottom: 3px solid var(--accent);
+    }
+
+    /* MINI HERO */
+    .mini-hero {
+      background: var(--hero-bg);
+      padding: 28px 20px 24px;
+      text-align: center;
+    }
+    .mini-logo {
+      width: 70px;
+      height: 70px;
+      background: var(--logo-bg);
+      border-radius: 50%;
+      margin: 0 auto 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+    }
+    .mini-hero h2 { font-size: 18px; font-weight: 800; color: var(--hero-text); margin-bottom: 6px; }
+    .mini-hero p { font-size: 12px; color: var(--hero-muted); margin-bottom: 16px; }
+    .mini-btns { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+    .mini-btn-primary {
+      background: var(--accent);
+      color: var(--btn-text);
+      border: none;
+      padding: 9px 18px;
+      border-radius: 7px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .mini-btn-secondary {
+      background: transparent;
+      color: var(--hero-text);
+      border: 2px solid var(--accent);
+      padding: 7px 16px;
+      border-radius: 7px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    /* MINI NAV */
+    .mini-nav {
+      background: var(--nav-bg);
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--nav-border);
+    }
+    .mini-nav-brand { font-size: 13px; font-weight: 800; color: var(--nav-text); }
+    .mini-nav-btn {
+      background: var(--wa-color);
+      color: #fff;
+      border: none;
+      padding: 5px 12px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    /* MINI CARDS */
+    .mini-catalog { background: var(--catalog-bg); padding: 16px; }
+    .mini-catalog-title { font-size: 13px; font-weight: 800; color: var(--accent); text-align: center; margin-bottom: 12px; }
+    .mini-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+    .mini-card {
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+    }
+    .mini-card-img {
+      height: 70px;
+      background: var(--card-img-bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+    .mini-card-body { padding: 6px 7px; }
+    .mini-card-name { font-size: 9px; font-weight: 700; color: var(--card-text); margin-bottom: 3px; }
+    .mini-card-price { font-size: 10px; font-weight: 800; color: var(--accent); }
+
+    /* MINI FOOTER */
+    .mini-footer {
+      background: var(--hero-bg);
+      padding: 14px 16px;
+      text-align: center;
+      font-size: 11px;
+      color: var(--hero-muted);
+    }
+
+    /* SWATCHES */
+    .swatches { display: flex; gap: 6px; justify-content: center; padding: 12px 16px; background: #1a1a1a; }
+    .swatch { width: 28px; height: 28px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.2); }
+    .swatch-label { font-size: 10px; color: #666; text-align: center; margin-top: 3px; }
+
+    /* ============ PALETA 1: VINO MERLOT ============ */
+    .paleta-1 {
+      --hero-bg: linear-gradient(160deg, #2d0a1a 0%, #1a0510 100%);
+      --hero-text: #fff;
+      --hero-muted: rgba(255,200,200,0.6);
+      --logo-bg: rgba(180,20,60,0.3);
+      --accent: #c0294a;
+      --accent-light: #e03060;
+      --btn-text: #fff;
+      --nav-bg: #fff;
+      --nav-border: #f0e0e5;
+      --nav-text: #1a0510;
+      --wa-color: #25D366;
+      --catalog-bg: #fdf5f7;
+      --card-bg: #fff;
+      --card-border: #f5d0d8;
+      --card-img-bg: linear-gradient(135deg, #f9e0e5, #fdf0f2);
+      --card-text: #1a0510;
+    }
+
+    /* ============ PALETA 2: AZUL MARINO / ORO ============ */
+    .paleta-2 {
+      --hero-bg: linear-gradient(160deg, #0a1628 0%, #060e1a 100%);
+      --hero-text: #fff;
+      --hero-muted: rgba(180,200,255,0.6);
+      --logo-bg: rgba(20,80,180,0.3);
+      --accent: #c9922a;
+      --accent-light: #e0aa40;
+      --btn-text: #fff;
+      --nav-bg: #fff;
+      --nav-border: #e8ecf5;
+      --nav-text: #0a1628;
+      --wa-color: #25D366;
+      --catalog-bg: #f5f7fc;
+      --card-bg: #fff;
+      --card-border: #dce3f0;
+      --card-img-bg: linear-gradient(135deg, #e8edf8, #f0f4fc);
+      --card-text: #0a1628;
+    }
+
+    /* ============ PALETA 3: NEGRO / NARANJA ============ */
+    .paleta-3 {
+      --hero-bg: linear-gradient(160deg, #1a1a1a 0%, #0d0d0d 100%);
+      --hero-text: #fff;
+      --hero-muted: rgba(255,200,100,0.6);
+      --logo-bg: rgba(230,100,0,0.25);
+      --accent: #e06500;
+      --accent-light: #f07820;
+      --btn-text: #fff;
+      --nav-bg: #fff;
+      --nav-border: #ececec;
+      --nav-text: #1a1a1a;
+      --wa-color: #25D366;
+      --catalog-bg: #f7f7f5;
+      --card-bg: #fff;
+      --card-border: #e8e8e8;
+      --card-img-bg: linear-gradient(135deg, #f5ede0, #fdf5ec);
+      --card-text: #1a1a1a;
+    }
+  </style>
+</head>
+<body>
+  <h1>Opciones de Paleta de Color</h1>
+  <p class="subtitle">Vista previa de cómo quedaría el sitio con cada paleta</p>
+
+  <div class="paletas">
+
+    <!-- PALETA 1: VINO -->
+    <div class="paleta paleta-1">
+      <div class="paleta-label" style="--accent:#c0294a">🍷 Opción 1 — Vino / Borgoña</div>
+      <div class="mini-nav">
+        <div class="mini-nav-brand">🐕 PEMBROKE</div>
+        <button class="mini-nav-btn">WhatsApp</button>
+      </div>
+      <div class="mini-hero">
+        <div class="mini-logo">🐕</div>
+        <h2>Fardos de Ropa Americana</h2>
+        <p>La mejor selección importada.</p>
+        <div class="mini-btns">
+          <button class="mini-btn-primary">Ver Catálogo</button>
+          <button class="mini-btn-secondary">🚚 Envíos</button>
+          <button class="mini-btn-secondary">🛡️ Garantía</button>
+        </div>
+      </div>
+      <div class="mini-catalog">
+        <div class="mini-catalog-title">Nuestros Fardos</div>
+        <div class="mini-grid">
+          <div class="mini-card">
+            <div class="mini-card-img">👗</div>
+            <div class="mini-card-body">
+              <div class="mini-card-name">POLAR MIXTO</div>
+              <div class="mini-card-price">$85.000</div>
+            </div>
+          </div>
+          <div class="mini-card">
+            <div class="mini-card-img">🧥</div>
+            <div class="mini-card-body">
+              <div class="mini-card-name">PARKA ADULTO</div>
+              <div class="mini-card-price">$120.000</div>
+            </div>
+          </div>
+          <div class="mini-card">
+            <div class="mini-card-img">👕</div>
+            <div class="mini-card-body">
+              <div class="mini-card-name">POLERON</div>
+              <div class="mini-card-price">$65.000</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="mini-footer">© Importadora Pembroke</div>
+      <div class="swatches">
+        <div>
+          <div class="swatch" style="background:#2d0a1a"></div>
+          <div class="swatch-label">Fondo</div>
+        </div>
+        <div>
+          <div class="swatch" style="background:#c0294a"></div>
+          <div class="swatch-label">Acento</div>
+        </div>
+        <div>
+          <div class="swatch" style="background:#fff"></div>
+          <div class="swatch-label">Nav</div>
+        </div>
+        <div>
+          <div class="swatch" style="background:#fdf5f7"></div>
+          <div class="swatch-label">Catálogo</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PALETA 2: AZUL MARINO / ORO -->
+    <div class="paleta paleta-2">
+      <div class="paleta-label" style="--accent:#c9922a">⚓ Opción 2 — Marino / Dorado</div>
+      <div class="mini-nav">
+        <div class="mini-nav-brand">🐕 PEMBROKE</div>
+        <button class="mini-nav-btn">WhatsApp</button>
+      </div>
+      <div class="mini-hero">
+        <div class="mini-logo">🐕</div>
+        <h2>Fardos de Ropa Americana</h2>
+        <p>La mejor selección importada.</p>
+        <div class="mini-btns">
+          <button class="mini-btn-primary">Ver Catálogo</button>
+          <button class="mini-btn-secondary">🚚 Envíos</button>
+          <button class="mini-btn-secondary">🛡️ Garantía</button>
+        </div>
+      </div>
+      <div class="mini-catalog">
+        <div class="mini-catalog-title">Nuestros Fardos</div>
+        <div class="mini-grid">
+          <div class="mini-card">
+            <div class="mini-card-img">👗</div>
+            <div class="mini-card-body">
+              <div class="mini-card-name">POLAR MIXTO</div>
+              <div class="mini-card-price">$85.000</div>
+            </div>
+          </div>
+          <div class="mini-card">
+            <div class="mini-card-img">🧥</div>
+            <div class="mini-card-body">
+              <div class="mini-card-name">PARKA ADULTO</div>
+              <div class="mini-card-price">$120.000</div>
+            </div>
+          </div>
+          <div class="mini-card">
+            <div class="mini-card-img">👕</div>
+            <div class="mini-card-body">
+              <div class="mini-card-name">POLERON</div>
+              <div class="mini-card-price">$65.000</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="mini-footer">© Importadora Pembroke</div>
+      <div class="swatches">
+        <div>
+          <div class="swatch" style="background:#0a1628"></div>
+          <div class="swatch-label">Fondo</div>
+        </div>
+        <div>
+          <div class="swatch" style="background:#c9922a"></div>
+          <div class="swatch-label">Acento</div>
+        </div>
+        <div>
+          <div class="swatch" style="background:#fff"></div>
+          <div class="swatch-label">Nav</div>
+        </div>
+        <div>
+          <div class="swatch" style="background:#f5f7fc"></div>
+          <div class="swatch-label">Catálogo</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PALETA 3: NEGRO / NARANJA -->
+    <div class="paleta paleta-3">
+      <div class="paleta-label" style="--accent:#e06500">🔥 Opción 3 — Negro / Naranja</div>
+      <div class="mini-nav">
+        <div class="mini-nav-brand">🐕 PEMBROKE</div>
+        <button class="mini-nav-btn">WhatsApp</button>
+      </div>
+      <div class="mini-hero">
+        <div class="mini-logo">🐕</div>
+        <h2>Fardos de Ropa Americana</h2>
+        <p>La mejor selección importada.</p>
+        <div class="mini-btns">
+          <button class="mini-btn-primary">Ver Catálogo</button>
+          <button class="mini-btn-secondary">🚚 Envíos</button>
+          <button class="mini-btn-secondary">🛡️ Garantía</button>
+        </div>
+      </div>
+      <div class="mini-catalog">
+        <div class="mini-catalog-title">Nuestros Fardos</div>
+        <div class="mini-grid">
+          <div class="mini-card">
+            <div class="mini-card-img">👗</div>
+            <div class="mini-card-body">
+              <div class="mini-card-name">POLAR MIXTO</div>
+              <div class="mini-card-price">$85.000</div>
+            </div>
+          </div>
+          <div class="mini-card">
+            <div class="mini-card-img">🧥</div>
+            <div class="mini-card-body">
+              <div class="mini-card-name">PARKA ADULTO</div>
+              <div class="mini-card-price">$120.000</div>
+            </div>
+          </div>
+          <div class="mini-card">
+            <div class="mini-card-img">👕</div>
+            <div class="mini-card-body">
+              <div class="mini-card-name">POLERON</div>
+              <div class="mini-card-price">$65.000</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="mini-footer">© Importadora Pembroke</div>
+      <div class="swatches">
+        <div>
+          <div class="swatch" style="background:#1a1a1a"></div>
+          <div class="swatch-label">Fondo</div>
+        </div>
+        <div>
+          <div class="swatch" style="background:#e06500"></div>
+          <div class="swatch-label">Acento</div>
+        </div>
+        <div>
+          <div class="swatch" style="background:#fff"></div>
+          <div class="swatch-label">Nav</div>
+        </div>
+        <div>
+          <div class="swatch" style="background:#f7f7f5"></div>
+          <div class="swatch-label">Catálogo</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <p style="text-align:center;margin-top:32px;font-size:13px;color:#555;">
+    ¿Te gusta alguna? Dile a Claude cuál quieres y se aplica al sitio completo.
+  </p>
+</body>
+</html>

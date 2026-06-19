@@ -12,7 +12,7 @@ const PORT = process.env.PORT || 3000;
 const JWT_SECRET = process.env.JWT_SECRET || 'pembroke-secret-2024';
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'pembroke2024';
 
-const uploadsDir = path.join(__dirname, 'public', 'uploads');
+const uploadsDir = process.env.UPLOADS_DIR || path.join(__dirname, 'public', 'uploads');
 if (!fs.existsSync(uploadsDir)) fs.mkdirSync(uploadsDir, { recursive: true });
 
 const storage = multer.diskStorage({
@@ -170,6 +170,90 @@ app.post('/api/admin/products/:id/videos', authMiddleware, uploadVideo.array('vi
   if (!product) return res.status(404).json({ error: 'Producto no encontrado' });
   req.files.forEach(file => db.addVideo(productId, file.filename));
   res.json({ message: `${req.files.length} video(s) subido(s)` });
+});
+
+app.patch('/api/admin/videos/:id/poster', authMiddleware, upload.single('poster'), (req, res) => {
+  const vidId = Number(req.params.id);
+  if (!req.file) return res.status(400).json({ error: 'No se recibió imagen' });
+  const oldFile = db.setVideoPoster(vidId, req.file.filename);
+  if (oldFile === null) return res.status(404).json({ error: 'Video no encontrado' });
+  if (oldFile) {
+    const oldPath = path.join(uploadsDir, oldFile);
+    if (fs.existsSync(oldPath)) fs.unlinkSync(oldPath);
+  }
+  res.json({ filename: req.file.filename, message: 'Portada del video actualizada' });
+});
+
+const uploadLogo = multer({ storage: multer.diskStorage({
+  destination: (req, file, cb) => cb(null, path.join(__dirname, 'public')),
+  filename: (req, file, cb) => cb(null, 'logo' + path.extname(file.originalname))
+}), fileFilter: (req, file, cb) => { if (file.mimetype.startsWith('image/')) cb(null, true); else cb(new Error('Solo imágenes')); } });
+
+app.post('/api/admin/logo', authMiddleware, uploadLogo.single('logo'), (req, res) => {
+  if (!req.file) return res.status(400).json({ error: 'No se recibió imagen' });
+  res.json({ message: 'Logo actualizado' });
+});
+
+app.get('/api/logo-size', (req, res) => {
+  res.json({ size: db.getLogoSize() });
+});
+
+app.put('/api/admin/logo-size', authMiddleware, (req, res) => {
+  const { size } = req.body;
+  if (!size || size < 60 || size > 500) return res.status(400).json({ error: 'Tamaño inválido' });
+  db.setLogoSize(size);
+  res.json({ message: 'Tamaño actualizado' });
+});
+
+app.get('/api/shipping', (req, res) => {
+  res.json({ text: db.getShippingInfo(), image: db.getShippingImage() });
+});
+
+app.put('/api/admin/shipping', authMiddleware, (req, res) => {
+  const { text } = req.body;
+  db.setShippingInfo(text || '');
+  res.json({ message: 'Información de envíos actualizada' });
+});
+
+app.get('/api/shipping-image', (req, res) => {
+  res.json(db.getShippingImage());
+});
+
+app.put('/api/admin/shipping-image', authMiddleware, (req, res) => {
+  const { position, size } = req.body;
+  db.setShippingImage({ position, size: Number(size) });
+  res.json({ message: 'Configuración de imagen actualizada' });
+});
+
+app.post('/api/admin/shipping-image/upload', authMiddleware, upload.single('image'), (req, res) => {
+  if (!req.file) return res.status(400).json({ error: 'No se recibió imagen' });
+  const current = db.getShippingImage();
+  if (current.filename) {
+    const old = path.join(uploadsDir, current.filename);
+    if (fs.existsSync(old)) fs.unlinkSync(old);
+  }
+  db.setShippingImage({ filename: req.file.filename });
+  res.json({ filename: req.file.filename });
+});
+
+app.delete('/api/admin/shipping-image', authMiddleware, (req, res) => {
+  const current = db.getShippingImage();
+  if (current.filename) {
+    const old = path.join(uploadsDir, current.filename);
+    if (fs.existsSync(old)) fs.unlinkSync(old);
+  }
+  db.setShippingImage({ filename: null });
+  res.json({ message: 'Imagen eliminada' });
+});
+
+app.get('/api/warranty', (req, res) => {
+  res.json({ text: db.getWarrantyInfo() });
+});
+
+app.put('/api/admin/warranty', authMiddleware, (req, res) => {
+  const { text } = req.body;
+  db.setWarrantyInfo(text || '');
+  res.json({ message: 'Información de garantía actualizada' });
 });
 
 app.delete('/api/admin/videos/:id', authMiddleware, (req, res) => {

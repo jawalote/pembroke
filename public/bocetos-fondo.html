@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Opciones de Fondo - Pembroke</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: system-ui, sans-serif; background: #111; padding: 32px 20px; }
+    h1 { text-align: center; color: #fff; font-size: 20px; margin-bottom: 6px; }
+    .subtitle { text-align: center; color: #888; font-size: 13px; margin-bottom: 36px; }
+
+    .opciones { display: flex; flex-direction: column; gap: 32px; max-width: 860px; margin: 0 auto; }
+
+    .opcion { border-radius: 16px; overflow: hidden; box-shadow: 0 8px 40px rgba(0,0,0,0.5); }
+    .opcion-label {
+      padding: 12px 20px;
+      font-weight: 800;
+      font-size: 14px;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .tag { background: rgba(255,255,255,0.2); padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; }
+
+    /* NAV común */
+    .m-nav {
+      padding: 0 24px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .m-wa { background: #25D366; color: #fff; border: none; padding: 7px 16px; border-radius: 7px; font-size: 13px; font-weight: 700; }
+
+    /* HERO común */
+    .m-hero {
+      padding: 32px 24px 36px;
+      text-align: center;
+    }
+    .m-hero img { height: 180px; object-fit: contain; margin-bottom: 14px; }
+    .m-hero h2 { font-size: 26px; font-weight: 800; margin-bottom: 8px; }
+    .m-hero p { font-size: 14px; margin-bottom: 20px; max-width: 420px; margin-left: auto; margin-right: auto; }
+    .m-btns { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+    .m-btn { padding: 10px 20px; border-radius: 8px; font-size: 13px; font-weight: 700; border: none; cursor: pointer; }
+
+    /* ---- OPCIÓN 1: BLANCO PURO ---- */
+    .op1 .opcion-label { background: #2D4A3E; }
+    .op1 .m-nav { background: #f0f0f0; border-bottom: 1px solid #ddd; }
+    .op1 .m-nav-brand { font-weight: 800; color: #2D4A3E; font-size: 14px; }
+    .op1 .m-hero { background: #ffffff; border-bottom: 2px solid #e5e5e5; }
+    .op1 .m-hero h2 { color: #2D4A3E; }
+    .op1 .m-hero p { color: #666; }
+    .op1 .m-btn-p { background: #2D4A3E; color: #fff; }
+    .op1 .m-btn-s { background: #fff; color: #2D4A3E; border: 2px solid #2D4A3E !important; }
+
+    /* ---- OPCIÓN 2: CREMA / BEIGE ---- */
+    .op2 .opcion-label { background: #5c4a1e; }
+    .op2 .m-nav { background: #fffbf0; border-bottom: 1px solid #e8dfc0; }
+    .op2 .m-nav-brand { font-weight: 800; color: #3d2e0a; font-size: 14px; }
+    .op2 .m-hero { background: linear-gradient(160deg, #fdf6e3 0%, #f5e9c8 100%); border-bottom: 2px solid #e0cc90; }
+    .op2 .m-hero h2 { color: #2c1f05; }
+    .op2 .m-hero p { color: #6b5320; }
+    .op2 .m-btn-p { background: #2c1f05; color: #f5e9c8; }
+    .op2 .m-btn-s { background: transparent; color: #2c1f05; border: 2px solid #2c1f05 !important; }
+
+    /* ---- OPCIÓN 3: AZUL MARINO OSCURO ---- */
+    .op3 .opcion-label { background: #0a1628; }
+    .op3 .m-nav { background: #fff; border-bottom: 1px solid #dde3f0; }
+    .op3 .m-nav-brand { font-weight: 800; color: #0a1628; font-size: 14px; }
+    .op3 .m-hero { background: linear-gradient(160deg, #0d1e38 0%, #060e1a 100%); border-bottom: 2px solid #1a3060; }
+    .op3 .m-hero h2 { color: #ffffff; }
+    .op3 .m-hero p { color: rgba(200,215,255,0.75); }
+    .op3 .m-btn-p { background: #c9922a; color: #fff; }
+    .op3 .m-btn-s { background: transparent; color: #fff; border: 2px solid rgba(255,255,255,0.5) !important; }
+  </style>
+</head>
+<body>
+  <h1>Opciones de Fondo para el Logo</h1>
+  <p class="subtitle">El nuevo logo tiene texto oscuro — elige el fondo que lo resalte mejor</p>
+
+  <div class="opciones">
+
+    <!-- OPCIÓN 1 -->
+    <div class="opcion op1">
+      <div class="opcion-label">Opción 1 — Fondo Blanco <span class="tag">Limpio · profesional · logo destaca solo</span></div>
+      <div class="m-nav">
+        <span class="m-nav-brand">IMPORTADORA PEMBROKE</span>
+        <button class="m-wa">WhatsApp</button>
+      </div>
+      <div class="m-hero">
+        <img src="/logo.png" alt="logo">
+        <h2>Fardos de Ropa Americana</h2>
+        <p>La mejor selección de ropa americana importada. Calidad garantizada para tu negocio.</p>
+        <div class="m-btns">
+          <button class="m-btn m-btn-p">Ver Catálogo</button>
+          <button class="m-btn m-btn-s">🚚 Envíos</button>
+          <button class="m-btn m-btn-s">🛡️ Garantía</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- OPCIÓN 2 -->
+    <div class="opcion op2">
+      <div class="opcion-label">Opción 2 — Fondo Crema / Beige <span class="tag">Cálido · combina con colores del logo</span></div>
+      <div class="m-nav">
+        <span class="m-nav-brand">IMPORTADORA PEMBROKE</span>
+        <button class="m-wa">WhatsApp</button>
+      </div>
+      <div class="m-hero">
+        <img src="/logo.png" alt="logo">
+        <h2>Fardos de Ropa Americana</h2>
+        <p>La mejor selección de ropa americana importada. Calidad garantizada para tu negocio.</p>
+        <div class="m-btns">
+          <button class="m-btn m-btn-p">Ver Catálogo</button>
+          <button class="m-btn m-btn-s">🚚 Envíos</button>
+          <button class="m-btn m-btn-s">🛡️ Garantía</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- OPCIÓN 3 -->
+    <div class="opcion op3">
+      <div class="opcion-label">Opción 3 — Marino Oscuro + Dorado <span class="tag">Impactante · logo resalta en contraste</span></div>
+      <div class="m-nav">
+        <span class="m-nav-brand">IMPORTADORA PEMBROKE</span>
+        <button class="m-wa">WhatsApp</button>
+      </div>
+      <div class="m-hero">
+        <img src="/logo.png" alt="logo">
+        <h2>Fardos de Ropa Americana</h2>
+        <p>La mejor selección de ropa americana importada. Calidad garantizada para tu negocio.</p>
+        <div class="m-btns">
+          <button class="m-btn m-btn-p">Ver Catálogo</button>
+          <button class="m-btn m-btn-s">🚚 Envíos</button>
+          <button class="m-btn m-btn-s">🛡️ Garantía</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <p style="text-align:center;margin-top:28px;font-size:13px;color:#555;">¿Cuál prefieres? Díselo a Claude y lo aplica.</p>
+</body>
+</html>

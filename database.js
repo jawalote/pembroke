@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const DB_FILE = path.join(__dirname, 'data.json');
+const DB_FILE = process.env.DATABASE_PATH || path.join(__dirname, 'data.json');
 
 function readDB() {
   if (!fs.existsSync(DB_FILE)) return { products: [], images: [], videos: [], nextProductId: 1, nextImageId: 1, nextVideoId: 1 };
@@ -112,10 +112,19 @@ const db = {
   addVideo(productId, filename) {
     const data = readDB();
     const maxOrden = data.videos.filter(v => v.product_id === productId).reduce((m, v) => Math.max(m, v.orden), 0);
-    const vid = { id: data.nextVideoId++, product_id: productId, filename, orden: maxOrden + 1 };
+    const vid = { id: data.nextVideoId++, product_id: productId, filename, poster_filename: null, orden: maxOrden + 1 };
     data.videos.push(vid);
     writeDB(data);
     return vid;
+  },
+  setVideoPoster(vidId, posterFilename) {
+    const data = readDB();
+    const idx = data.videos.findIndex(v => v.id === vidId);
+    if (idx === -1) return null;
+    const old = data.videos[idx].poster_filename;
+    data.videos[idx].poster_filename = posterFilename;
+    writeDB(data);
+    return old;
   },
   deleteVideo(vidId) {
     const data = readDB();
@@ -124,6 +133,42 @@ const db = {
     data.videos = data.videos.filter(v => v.id !== vidId);
     writeDB(data);
     return vid;
+  },
+  getLogoSize() {
+    const data = readDB();
+    return data.logo_size || 160;
+  },
+  setLogoSize(size) {
+    const data = readDB();
+    data.logo_size = Number(size);
+    writeDB(data);
+  },
+  getShippingInfo() {
+    const data = readDB();
+    return data.shipping_info || '';
+  },
+  setShippingInfo(text) {
+    const data = readDB();
+    data.shipping_info = text;
+    writeDB(data);
+  },
+  getWarrantyInfo() {
+    const data = readDB();
+    return data.warranty_info || '';
+  },
+  setWarrantyInfo(text) {
+    const data = readDB();
+    data.warranty_info = text;
+    writeDB(data);
+  },
+  getShippingImage() {
+    const data = readDB();
+    return data.shipping_image || { filename: null, position: 'right', size: 200 };
+  },
+  setShippingImage(settings) {
+    const data = readDB();
+    data.shipping_image = { ...( data.shipping_image || {}), ...settings };
+    writeDB(data);
   }
 };
 

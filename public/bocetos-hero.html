@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bocetos Layout - Pembroke</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: system-ui, sans-serif; background: #1a1a1a; padding: 32px 20px; }
+    h1 { text-align: center; color: #fff; font-size: 20px; margin-bottom: 6px; }
+    .subtitle { text-align: center; color: #888; font-size: 13px; margin-bottom: 40px; }
+
+    .bocetos { display: flex; flex-direction: column; gap: 48px; max-width: 900px; margin: 0 auto; }
+
+    .boceto { background: #2a2a2a; border-radius: 16px; overflow: hidden; }
+    .boceto-label {
+      background: #2D4A3E;
+      color: #fff;
+      padding: 12px 20px;
+      font-weight: 800;
+      font-size: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .boceto-tag {
+      background: rgba(255,255,255,0.2);
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .preview {
+      background: #fff;
+      border: 3px solid #2D4A3E;
+    }
+
+    /* ===== MINI COMPONENTES COMUNES ===== */
+    .m-nav {
+      background: #fff;
+      border-bottom: 1px solid #e5e5e5;
+      padding: 0 20px;
+      height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.06);
+    }
+    .m-nav-logo { height: 36px; background: #1a2e25; border-radius: 6px; padding: 2px 5px; display:flex; align-items:center; }
+    .m-nav-logo img { height: 32px; }
+    .m-nav-brand { font-weight: 800; font-size: 14px; color: #2D4A3E; }
+    .m-wa-btn {
+      background: #25D366;
+      color: #fff;
+      border: none;
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .m-btn-primary {
+      background: #2D4A3E;
+      color: #fff;
+      border: none;
+      padding: 9px 18px;
+      border-radius: 7px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .m-btn-sec {
+      background: #fff;
+      color: #2D4A3E;
+      border: 2px solid #2D4A3E;
+      padding: 7px 14px;
+      border-radius: 7px;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .m-catalog-title { font-size: 18px; font-weight: 800; color: #2D4A3E; text-align: center; margin-bottom: 12px; }
+    .m-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+    .m-card { border-radius: 8px; overflow: hidden; border: 1px solid #e5e5e5; background: #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.07); }
+    .m-card-img { height: 80px; background: linear-gradient(135deg, #f0f4f2, #e8ede9); display:flex; align-items:center; justify-content:center; font-size:24px; }
+    .m-card-body { padding: 6px 8px 8px; }
+    .m-card-cat { font-size: 9px; font-weight: 700; color: #2D4A3E; background: #eef2ef; padding: 2px 7px; border-radius: 20px; display:inline-block; margin-bottom:4px; }
+    .m-card-name { font-size: 10px; font-weight: 700; color: #1a1a1a; margin-bottom: 4px; }
+    .m-card-price { font-size: 11px; font-weight: 800; color: #2D4A3E; }
+    .m-catalog { padding: 20px; background: #f8f8f8; }
+    .m-filtros { display: flex; gap: 6px; justify-content: center; margin-bottom: 14px; flex-wrap: wrap; }
+    .m-filtro { padding: 4px 12px; border: 2px solid #2D4A3E; background: #2D4A3E; color: #fff; border-radius: 20px; font-size: 10px; font-weight: 700; }
+    .m-filtro.off { background: #fff; color: #888; border-color: #ddd; }
+
+    /* ===== BOCETO A: BANNER HORIZONTAL ===== */
+    .hero-a {
+      background: #fff;
+      display: flex;
+      align-items: center;
+      gap: 0;
+      border-bottom: 2px solid #e5e5e5;
+    }
+    .hero-a-logo { width: 160px; flex-shrink: 0; display:flex; align-items:flex-end; justify-content:center; padding: 0 0 0 16px; }
+    .hero-a-logo img { height: 130px; object-fit: contain; }
+    .hero-a-text { flex: 1; padding: 20px 20px 20px 12px; }
+    .hero-a-text h2 { font-size: 20px; font-weight: 800; color: #2D4A3E; margin-bottom: 6px; }
+    .hero-a-text p { font-size: 12px; color: #666; margin-bottom: 14px; }
+    .hero-a-btns { display: flex; gap: 8px; flex-wrap: wrap; }
+
+    /* ===== BOCETO B: LOGO GRANDE CENTRADO, HERO MINIMALISTA ===== */
+    .hero-b {
+      background: #fff;
+      text-align: center;
+      padding: 16px 20px 20px;
+      border-bottom: 2px solid #e5e5e5;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .hero-b-logo img { height: 100px; object-fit: contain; }
+    .hero-b-right { text-align: left; flex: 1; }
+    .hero-b-right h2 { font-size: 22px; font-weight: 800; color: #2D4A3E; margin-bottom: 4px; }
+    .hero-b-right p { font-size: 12px; color: #666; margin-bottom: 12px; }
+    .hero-b-btns { display: flex; gap: 7px; flex-wrap: wrap; }
+
+    /* ===== BOCETO C: NAVBAR CON LOGO GRANDE + HERO BANNER DELGADO ===== */
+    .m-nav-c {
+      background: #fff;
+      border-bottom: 3px solid #2D4A3E;
+      padding: 8px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .m-nav-c-brand { display: flex; align-items: center; gap: 10px; }
+    .m-nav-c-brand img { height: 52px; }
+    .m-nav-c-name { font-size: 14px; font-weight: 800; color: #2D4A3E; line-height: 1.2; }
+    .m-nav-c-name span { font-size: 10px; font-weight: 400; color: #666; display: block; }
+    .hero-c {
+      background: linear-gradient(90deg, #2D4A3E, #3d6b5a);
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .hero-c p { font-size: 13px; font-weight: 700; color: rgba(255,255,255,0.9); }
+    .hero-c-btns { display: flex; gap: 7px; }
+    .m-btn-white {
+      background: #fff;
+      color: #2D4A3E;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 10px;
+      font-weight: 700;
+    }
+    .m-btn-outline-white {
+      background: transparent;
+      color: #fff;
+      border: 2px solid rgba(255,255,255,0.6);
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 10px;
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Bocetos de Layout</h1>
+<p class="subtitle">3 opciones para ver el catálogo sin scrollear tanto</p>
+
+<div class="bocetos">
+
+  <!-- BOCETO A -->
+  <div class="boceto">
+    <div class="boceto-label">
+      Boceto A — Banner lateral <span class="boceto-tag">Logo a la izquierda · texto a la derecha</span>
+    </div>
+    <div class="preview">
+      <div class="m-nav">
+        <div class="m-nav-brand">IMPORTADORA PEMBROKE</div>
+        <button class="m-wa-btn">WhatsApp</button>
+      </div>
+      <div class="hero-a">
+        <div class="hero-a-logo">
+          <img src="/logo.png" alt="logo">
+        </div>
+        <div class="hero-a-text">
+          <h2>Fardos de Ropa Americana</h2>
+          <p>La mejor selección importada. Calidad garantizada para tu negocio.</p>
+          <div class="hero-a-btns">
+            <button class="m-btn-primary">Ver Catálogo</button>
+            <button class="m-btn-sec">🚚 Envíos</button>
+            <button class="m-btn-sec">🛡️ Garantía</button>
+          </div>
+        </div>
+      </div>
+      <div class="m-catalog">
+        <p class="m-catalog-title">Nuestros Fardos</p>
+        <div class="m-filtros">
+          <div class="m-filtro">Todos</div>
+          <div class="m-filtro off">Mujer</div>
+          <div class="m-filtro off">Hombre</div>
+          <div class="m-filtro off">Infantil</div>
+        </div>
+        <div class="m-grid">
+          <div class="m-card"><div class="m-card-img">👗</div><div class="m-card-body"><div class="m-card-cat">Mujer</div><div class="m-card-name">POLAR MIXTO</div><div class="m-card-price">$85.000</div></div></div>
+          <div class="m-card"><div class="m-card-img">🧥</div><div class="m-card-body"><div class="m-card-cat">Hombre</div><div class="m-card-name">PARKA ADULTO</div><div class="m-card-price">$120.000</div></div></div>
+          <div class="m-card"><div class="m-card-img">👕</div><div class="m-card-body"><div class="m-card-cat">Mixto</div><div class="m-card-name">POLERON</div><div class="m-card-price">$65.000</div></div></div>
+          <div class="m-card"><div class="m-card-img">🧣</div><div class="m-card-body"><div class="m-card-cat">Infantil</div><div class="m-card-name">PIJAMA BEBE</div><div class="m-card-price">$45.000</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BOCETO B -->
+  <div class="boceto">
+    <div class="boceto-label">
+      Boceto B — Logo y texto en fila compacta <span class="boceto-tag">Logo pequeño · catálogo casi inmediato</span>
+    </div>
+    <div class="preview">
+      <div class="m-nav">
+        <div class="m-nav-brand">IMPORTADORA PEMBROKE</div>
+        <button class="m-wa-btn">WhatsApp</button>
+      </div>
+      <div class="hero-b">
+        <div class="hero-b-logo">
+          <img src="/logo.png" alt="logo">
+        </div>
+        <div class="hero-b-right">
+          <h2>Fardos de Ropa Americana</h2>
+          <p>La mejor selección de ropa americana importada. Calidad garantizada.</p>
+          <div class="hero-b-btns">
+            <button class="m-btn-primary">Ver Catálogo ↓</button>
+            <button class="m-btn-sec">🚚 Envíos</button>
+            <button class="m-btn-sec">🛡️ Garantía</button>
+          </div>
+        </div>
+      </div>
+      <div class="m-catalog">
+        <p class="m-catalog-title">Nuestros Fardos</p>
+        <div class="m-filtros">
+          <div class="m-filtro">Todos</div>
+          <div class="m-filtro off">Mujer</div>
+          <div class="m-filtro off">Hombre</div>
+          <div class="m-filtro off">Infantil</div>
+        </div>
+        <div class="m-grid">
+          <div class="m-card"><div class="m-card-img">👗</div><div class="m-card-body"><div class="m-card-cat">Mujer</div><div class="m-card-name">POLAR MIXTO</div><div class="m-card-price">$85.000</div></div></div>
+          <div class="m-card"><div class="m-card-img">🧥</div><div class="m-card-body"><div class="m-card-cat">Hombre</div><div class="m-card-name">PARKA ADULTO</div><div class="m-card-price">$120.000</div></div></div>
+          <div class="m-card"><div class="m-card-img">👕</div><div class="m-card-body"><div class="m-card-cat">Mixto</div><div class="m-card-name">POLERON</div><div class="m-card-price">$65.000</div></div></div>
+          <div class="m-card"><div class="m-card-img">🧣</div><div class="m-card-body"><div class="m-card-cat">Infantil</div><div class="m-card-name">PIJAMA BEBE</div><div class="m-card-price">$45.000</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BOCETO C -->
+  <div class="boceto">
+    <div class="boceto-label">
+      Boceto C — Logo en navbar grande + banner delgado verde <span class="boceto-tag">Más impacto · catálogo casi al tiro</span>
+    </div>
+    <div class="preview">
+      <div class="m-nav-c">
+        <div class="m-nav-c-brand">
+          <img src="/logo.png" alt="logo">
+          <div class="m-nav-c-name">
+            IMPORTADORA PEMBROKE
+            <span>Fardos de Ropa Americana</span>
+          </div>
+        </div>
+        <button class="m-wa-btn">WhatsApp</button>
+      </div>
+      <div class="hero-c">
+        <p>🇺🇸 La mejor selección de ropa americana importada</p>
+        <div class="hero-c-btns">
+          <button class="m-btn-white">🚚 Envíos</button>
+          <button class="m-btn-outline-white">🛡️ Garantía</button>
+        </div>
+      </div>
+      <div class="m-catalog">
+        <p class="m-catalog-title">Nuestros Fardos</p>
+        <div class="m-filtros">
+          <div class="m-filtro">Todos</div>
+          <div class="m-filtro off">Mujer</div>
+          <div class="m-filtro off">Hombre</div>
+          <div class="m-filtro off">Infantil</div>
+        </div>
+        <div class="m-grid">
+          <div class="m-card"><div class="m-card-img">👗</div><div class="m-card-body"><div class="m-card-cat">Mujer</div><div class="m-card-name">POLAR MIXTO</div><div class="m-card-price">$85.000</div></div></div>
+          <div class="m-card"><div class="m-card-img">🧥</div><div class="m-card-body"><div class="m-card-cat">Hombre</div><div class="m-card-name">PARKA ADULTO</div><div class="m-card-price">$120.000</div></div></div>
+          <div class="m-card"><div class="m-card-img">👕</div><div class="m-card-body"><div class="m-card-cat">Mixto</div><div class="m-card-name">POLERON</div><div class="m-card-price">$65.000</div></div></div>
+          <div class="m-card"><div class="m-card-img">🧣</div><div class="m-card-body"><div class="m-card-cat">Infantil</div><div class="m-card-name">PIJAMA BEBE</div><div class="m-card-price">$45.000</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<p style="text-align:center;margin-top:32px;font-size:13px;color:#555;">¿Cuál prefieres? Dile a Claude y lo aplica al sitio.</p>
+</body>
+</html>
